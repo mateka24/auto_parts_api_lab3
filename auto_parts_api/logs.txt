@@ -1,0 +1,83 @@
+wp_labs_app  | INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+wp_labs_app  | INFO  [alembic.runtime.migration] Will assume transactional DDL.
+wp_labs_app  | INFO:     Started server process [8]
+wp_labs_app  | INFO:     Waiting for application startup.
+wp_labs_app  | INFO:     Application startup complete.
+wp_labs_app  | INFO:     Uvicorn running on http://0.0.0.0:4200 (Press CTRL+C to quit)
+wp_labs_app  | INFO:     172.18.0.1:43122 - "GET /auth/oauth/yandex HTTP/1.1" 302 Found
+wp_labs_app  | INFO:     172.18.0.1:56742 - "POST /auth/register HTTP/1.1" 422 Unprocessable Entity
+wp_labs_app  | INFO:     172.18.0.1:38622 - "POST /auth/register HTTP/1.1" 201 Created
+wp_labs_app  | INFO:     172.18.0.1:55290 - "GET /docs HTTP/1.1" 200 OK
+wp_labs_app  | INFO:     172.18.0.1:55290 - "GET /openapi.json HTTP/1.1" 200 OK
+wp_labs_app  | INFO:     172.18.0.1:55306 - "GET /docs HTTP/1.1" 200 OK
+wp_labs_app  | INFO:     172.18.0.1:55306 - "GET /openapi.json HTTP/1.1" 200 OK
+wp_labs_app  | INFO:     172.18.0.1:55086 - "GET /auth/oauth/yandex HTTP/1.1" 302 Found
+wp_labs_app  | INFO:     172.18.0.1:55092 - "GET /auth/oauth/yandex HTTP/1.1" 302 Found
+wp_labs_app  | INFO:     172.18.0.1:55092 - "GET /auth/oauth/yandex/callback?state=Tj5ecGOfzoMI42_ETXu5CVwXYxM-Yf-WX9H0bMr4pm0&code=cvc6ccqmw3lh72q5&cid=g3u0uq6p8m64cnym74wb494bwg HTTP/1.1" 500 Internal Server Error
+wp_labs_app  | ERROR:    Exception in ASGI application
+wp_labs_app  | Traceback (most recent call last):
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/uvicorn/protocols/http/h11_impl.py", line 415, in run_asgi
+wp_labs_app  |     result = await app(  # type: ignore[func-returns-value]
+wp_labs_app  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 56, in __call__
+wp_labs_app  |     return await self.app(scope, receive, send)
+wp_labs_app  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/fastapi/applications.py", line 1159, in __call__
+wp_labs_app  |     await super().__call__(scope, receive, send)
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/starlette/applications.py", line 90, in __call__
+wp_labs_app  |     await self.middleware_stack(scope, receive, send)
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/errors.py", line 186, in __call__
+wp_labs_app  |     raise exc
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/errors.py", line 164, in __call__
+wp_labs_app  |     await self.app(scope, receive, _send)
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 191, in __call__
+wp_labs_app  |     with recv_stream, send_stream, collapse_excgroups():
+wp_labs_app  |   File "/usr/local/lib/python3.11/contextlib.py", line 158, in __exit__
+wp_labs_app  |     self.gen.throw(typ, value, traceback)
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/starlette/_utils.py", line 87, in collapse_excgroups
+wp_labs_app  |     raise exc
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 193, in __call__
+wp_labs_app  |     response = await self.dispatch_func(request, call_next)
+wp_labs_app  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+wp_labs_app  |   File "/app/app/middleware/auth.py", line 35, in dispatch
+wp_labs_app  |     response = await call_next(request)
+wp_labs_app  |                ^^^^^^^^^^^^^^^^^^^^^^^^
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 168, in call_next
+wp_labs_app  |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 144, in coro
+wp_labs_app  |     await self.app(scope, receive_or_disconnect, send_no_error)
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/cors.py", line 88, in __call__
+wp_labs_app  |     await self.app(scope, receive, send)
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+wp_labs_app  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+wp_labs_app  |     raise exc
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+wp_labs_app  |     await app(scope, receive, sender)
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+wp_labs_app  |     await self.app(scope, receive, send)
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 660, in __call__
+wp_labs_app  |     await self.middleware_stack(scope, receive, send)
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 680, in app
+wp_labs_app  |     await route.handle(scope, receive, send)
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 276, in handle
+wp_labs_app  |     await self.app(scope, receive, send)
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 134, in app
+wp_labs_app  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+wp_labs_app  |     raise exc
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+wp_labs_app  |     await app(scope, receive, sender)
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 120, in app
+wp_labs_app  |     response = await f(request)
+wp_labs_app  |                ^^^^^^^^^^^^^^^^
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 674, in app
+wp_labs_app  |     raw_response = await run_endpoint_function(
+wp_labs_app  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+wp_labs_app  |   File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 328, in run_endpoint_function
+wp_labs_app  |     return await dependant.call(**values)
+wp_labs_app  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+wp_labs_app  |   File "/app/app/controllers/auth_controller.py", line 330, in oauth_callback
+wp_labs_app  |     from app.utils.jwt import create_access_token, create_refresh_token, hash_token, parse_expiration
+wp_labs_app  | ImportError: cannot import name 'hash_token' from 'app.utils.jwt' (/app/app/utils/jwt.py)
+wp_labs_app  | INFO:     172.18.0.1:51576 - "GET /auth/yandex HTTP/1.1" 404 Not Found
