@@ -76,7 +76,7 @@ class YandexOAuthService:
         2. Обмен кода на токен
         3. Получение информации о пользователе
         """
-        # Проверка state (защита от CSRF)
+    # Проверка state (защита от CSRF)
         if state != expected_state:
             return None
         
