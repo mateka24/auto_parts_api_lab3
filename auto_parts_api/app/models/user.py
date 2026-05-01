@@ -29,6 +29,8 @@ class User(Base):
     
     # Связь с токенами
     refresh_tokens = relationship("RefreshToken", back_populates="user", lazy="dynamic")
+    access_tokens = relationship("AccessToken", back_populates="user", lazy="dynamic")
+    password_reset_tokens = relationship("PasswordResetToken", back_populates="user", lazy="dynamic")
     
     # Связь с запчастями (для проверки владения)
     parts = relationship("AutoPart", back_populates="owner", lazy="dynamic")

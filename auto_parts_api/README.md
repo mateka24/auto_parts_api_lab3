@@ -35,10 +35,10 @@ cp .env.example .env
 ### 2. Запуск через Docker
 
 ```bash
-docker-compose up -d --build
+docker compose -f docker-compose.lab3.yml up -d --build
 ```
 
-API будет доступно на: **http://localhost:4200**
+API будет доступно на: **http://localhost:4203**
 
 ---
 
@@ -74,13 +74,13 @@ API будет доступно на: **http://localhost:4200**
 
 ### Через Swagger UI
 
-Откройте **http://localhost:4200/docs** для интерактивного тестирования API.
+Откройте **http://localhost:4203/docs** для интерактивного тестирования API.
 
 ### Пример регистрации и входа
 
 ```bash
 # Регистрация
-curl -X POST http://localhost:4200/auth/register \
+curl -X POST http://localhost:4203/auth/register \
   -H "Content-Type: application/json" \
   -d '{
     "email": "test@example.com",
@@ -89,7 +89,7 @@ curl -X POST http://localhost:4200/auth/register \
   }'
 
 # Вход (токены устанавливаются в cookies)
-curl -X POST http://localhost:4200/auth/login \
+curl -X POST http://localhost:4203/auth/login \
   -H "Content-Type: application/json" \
   -d '{
     "email": "test@example.com",
@@ -97,10 +97,10 @@ curl -X POST http://localhost:4200/auth/login \
   }'
 
 # Проверка статуса
-curl http://localhost:4200/auth/whoami
+curl http://localhost:4203/auth/whoami
 
 # Создание запчасти (требуется авторизация)
-curl -X POST http://localhost:4200/api/v1/parts \
+curl -X POST http://localhost:4203/api/v1/parts \
   -H "Content-Type: application/json" \
   -H "Cookie: access_token=YOUR_TOKEN" \
   -d '{
@@ -163,7 +163,7 @@ auto_parts_api/
 ├── alembic/              # Миграции БД
 ├── .env                  # Переменные окружения
 ├── .env.example          # Пример .env
-├── docker-compose.yml    # Docker конфигурация
+├── docker-compose.lab3.yml    # Docker конфигурация
 ├── requirements.txt      # Зависимости
 └── README.md
 ```
@@ -174,23 +174,23 @@ auto_parts_api/
 
 ### Запуск
 ```bash
-docker-compose up -d
+docker compose -f docker-compose.lab3.yml up -d
 ```
 
 ### Остановка
 ```bash
-docker-compose down
+docker compose -f docker-compose.lab3.yml down
 ```
 
 ### Просмотр логов
 ```bash
-docker-compose logs -f app
-docker-compose logs -f postgres
+docker compose -f docker-compose.lab3.yml logs -f app
+docker compose -f docker-compose.lab3.yml logs -f postgres
 ```
 
 ### Пересборка
 ```bash
-docker-compose up -d --build
+docker compose -f docker-compose.lab3.yml up -d --build
 ```
 
 ---

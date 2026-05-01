@@ -4,12 +4,10 @@ from alembic import context
 import os
 import sys
 
-# Добавляем путь к моделям
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# Импортируем Base и модели для Alembic
 from app.database import Base
-from app.models import part  # Импортируем, чтобы модели были зарегистрированы в Base.metadata
+from app import models  # noqa: F401
 
 config = context.config
 
@@ -20,7 +18,6 @@ target_metadata = Base.metadata
 
 
 def run_migrations_offline() -> None:
-    """Выполнение миграций в 'offline' режиме."""
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
         url=url,
@@ -34,7 +31,6 @@ def run_migrations_offline() -> None:
 
 
 def run_migrations_online() -> None:
-    """Выполнение миграций в 'online' режиме."""
     connectable = engine_from_config(
         config.get_section(config.config_ini_section),
         prefix="sqlalchemy.",
@@ -43,7 +39,7 @@ def run_migrations_online() -> None:
 
     with connectable.connect() as connection:
         context.configure(connection=connection, target_metadata=target_metadata)
-        
+
         with context.begin_transaction():
             context.run_migrations()
 

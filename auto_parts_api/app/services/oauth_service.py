@@ -1,5 +1,6 @@
 import httpx
 from typing import Optional, Dict, Any
+from urllib.parse import urlencode
 from app.config import settings
 
 
@@ -30,7 +31,7 @@ class YandexOAuthService:
             "scope": "login:email login:info login:default_phone"
         }
         
-        query_string = "&".join(f"{k}={v}" for k, v in params.items())
+        query_string = urlencode(params)
         return f"{self.AUTHORIZATION_URL}?{query_string}"
     
     async def exchange_code_for_token(self, code: str) -> Optional[Dict[str, Any]]:
@@ -45,13 +46,15 @@ class YandexOAuthService:
             "redirect_uri": self.callback_url
         }
         
-        async with httpx.AsyncClient() as client:
-            response = await client.post(self.TOKEN_URL, data=data)
+        try:
+            async with httpx.AsyncClient(timeout=10) as client:
+                response = await client.post(self.TOKEN_URL, data=data)
+        except httpx.RequestError:
+            return None
             
-            if response.status_code == 200:
-                return response.json()
-            else:
-                return None
+        if response.status_code == 200:
+            return response.json()
+        return None
     
     async def get_user_info(self, access_token: str) -> Optional[Dict[str, Any]]:
         """
@@ -61,13 +64,15 @@ class YandexOAuthService:
             "Authorization": f"OAuth {access_token}"
         }
         
-        async with httpx.AsyncClient() as client:
-            response = await client.get(self.USER_INFO_URL, headers=headers)
+        try:
+            async with httpx.AsyncClient(timeout=10) as client:
+                response = await client.get(self.USER_INFO_URL, headers=headers)
+        except httpx.RequestError:
+            return None
             
-            if response.status_code == 200:
-                return response.json()
-            else:
-                return None
+        if response.status_code == 200:
+            return response.json()
+        return None
     
     async def authenticate(self, code: str, state: str, expected_state: str) -> Optional[Dict[str, Any]]:
         """
@@ -139,7 +144,7 @@ class VKOAuthService:
             "scope": "email phone profile"
         }
         
-        query_string = "&".join(f"{k}={v}" for k, v in params.items())
+        query_string = urlencode(params)
         return f"{self.AUTHORIZATION_URL}?{query_string}"
     
     async def exchange_code_for_token(self, code: str) -> Optional[Dict[str, Any]]:
@@ -154,13 +159,15 @@ class VKOAuthService:
             "redirect_uri": self.callback_url
         }
         
-        async with httpx.AsyncClient() as client:
-            response = await client.post(self.TOKEN_URL, data=data)
+        try:
+            async with httpx.AsyncClient(timeout=10) as client:
+                response = await client.post(self.TOKEN_URL, data=data)
+        except httpx.RequestError:
+            return None
             
-            if response.status_code == 200:
-                return response.json()
-            else:
-                return None
+        if response.status_code == 200:
+            return response.json()
+        return None
     
     async def get_user_info(self, access_token: str) -> Optional[Dict[str, Any]]:
         """
@@ -170,10 +177,12 @@ class VKOAuthService:
             "access_token": access_token
         }
         
-        async with httpx.AsyncClient() as client:
-            response = await client.get(self.USER_INFO_URL, params=params)
+        try:
+            async with httpx.AsyncClient(timeout=10) as client:
+                response = await client.get(self.USER_INFO_URL, params=params)
+        except httpx.RequestError:
+            return None
             
-            if response.status_code == 200:
-                return response.json()
-            else:
-                return None
+        if response.status_code == 200:
+            return response.json()
+        return None
